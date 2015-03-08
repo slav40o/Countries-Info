@@ -27,24 +27,55 @@ var app = angular.module('starter', ['ionic'])
                 templateUrl: 'views/splash.html',
                 controller: 'SplashCtrl'
             })
-            .state('main', {
+            .state('app', {
+                url: '/app',
+                abstract: true,
+                templateUrl: 'views/partials/menu.html',
+                controller: 'AppCtrl'
+            })
+            .state('app.main', {
                 url: '/main',
-                templateUrl: 'views/main.html',
-                controller: 'MainCtrl'
+                views: {
+                    'menuContent': {
+                        templateUrl: 'views/main.html',
+                        controller: 'MainCtrl'
+                    }
+                }
+
             })
-            .state('search', {
+            .state('app.search', {
                 url: '/search',
-                templateUrl: 'views/search.html',
-                controller: 'SearchCtrl'
+                views: {
+                    'menuContent': {
+                        templateUrl: 'views/search.html',
+                        controller: 'SearchCtrl'
+                    }
+                }
             })
-            .state('countries', {
+            .state('app.countries', {
                 url: '/countries',
-                templateUrl: 'views/countries.html',
-                controller: 'CountriesCtrl'
+                views: {
+                    'menuContent': {
+                        templateUrl: 'views/countries.html',
+                        controller: 'CountriesCtrl'
+                    }
+                }
             })
-            .state('country', {
+            .state('app.country', {
                 url: '/countries/:name',
-                templateUrl: 'views/country.html',
-                controller: 'CountryCtrl'
+                views: {
+                    'menuContent': {
+                        templateUrl: 'views/country.html',
+                        controller: 'CountryCtrl'
+                    }
+                }
             })
+            .state('app.about', {
+                url: '/about',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'views/about.html'
+                    }
+                }
+            });
 });

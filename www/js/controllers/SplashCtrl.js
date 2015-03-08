@@ -7,11 +7,10 @@ app.controller('SplashCtrl', ['$scope', '$state',
 
         initialize();
 
-        $scope.author = "Slavi";
-
+        // For test
         function initialize(){
             setTimeout(function(){
-                $state.go('main');
+                $state.go('app.main');
             }, 1000)
         }
 
