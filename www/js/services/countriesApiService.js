@@ -2,11 +2,23 @@
  * Created by Slavi on 3/7/2015.
  */
 app.factory('countriesInfoService', function($http){
-    var apiString = "http://restcountries.eu/rest/v1";
-
+    var baseUrl = "http://restcountries.eu/rest/v1";
+    
     // /all
     function getAll(){
-
+        var defered = $q.defer();
+        
+        $http.get(baseUrl + '/all')
+            .success(function(data){
+                console.debug('All countries fetched');
+                defered.resolve(data);
+            })
+            .error(function(error){
+                console.error(error);
+                defered.reject(error);
+            });
+        
+        return defered.promise;
     }
 
     // /name/:subname
@@ -55,6 +67,6 @@ app.factory('countriesInfoService', function($http){
     }
 
     return {
-
+        getAll: getAll
     };
 });
