@@ -9,7 +9,8 @@
     </ion-nav-buttons>
     <ion-content class="has-header">
         <ion-list id="countries-list" ng-class="{searchMode: isSearchActive}">
-            <ion-item ng-repeat="country in countries | filter:search">
+            <ion-item ng-repeat="country in countries | filter:search"
+                      ui-sref="app.country-index({code: country.alpha3Code})">
                 <h2 class="country-item">{{country.name}}</h2>
                 <div class="country-info">
                     <p><strong>Population: </strong><span> {{country.population | population}}</span></p>

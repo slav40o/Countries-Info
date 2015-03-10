@@ -32,11 +32,16 @@ app.factory('cashedResourcesService', function($http, $log){
         }
     }
     
-    function getCountry(alpha3Code){
+    function getCountryByAlpha3Code(alpha3Code){
         var country = countries[alpha3Code];
         $log.debug('CashResS: ' + country.name + ' fetched');
         return country;
-        
+    }
+    
+    function getCountryById(id){
+        var country = countriesList[id];
+        $log.debug('CashResS: ' + country.name + ' fetched');
+        return country;
     }
     
     function getAllCountries(){
@@ -62,7 +67,8 @@ app.factory('cashedResourcesService', function($http, $log){
         addCountry: addCountry,
         addCountries: addCountries,
         setCountries: setCountries,
-        getCountry: getCountry,
+        getCountryByAlpha3Code: getCountryByAlpha3Code,
+        getCountryById: getCountryById,
         getAll: getAllCountries
     };
 });

@@ -1,7 +1,7 @@
 /**
  * Created by Slavi on 3/7/2015.
  */
-app.factory('countriesInfoService', function($http){
+app.factory('countriesApiService', function($http, $q, $log){
     var baseUrl = "http://restcountries.eu/rest/v1";
     
     // /all
@@ -10,11 +10,11 @@ app.factory('countriesInfoService', function($http){
         
         $http.get(baseUrl + '/all')
             .success(function(data){
-                console.debug('All countries fetched');
+                $log.debug('All countries fetched');
                 defered.resolve(data);
             })
             .error(function(error){
-                console.error(error);
+                $log.error(error);
                 defered.reject(error);
             });
         
@@ -23,7 +23,7 @@ app.factory('countriesInfoService', function($http){
 
     // /name/:subname
     function getBySubstring(subname){
-
+            
     }
 
     // /alpha/co
@@ -63,10 +63,22 @@ app.factory('countriesInfoService', function($http){
 
     // /name/aruba?fullText=true
     function getByFullName(name){
-
+        var defered = $q.defer();
+        
+        $http.get(baseUrl + '/name/' + name + '?fullText=true')
+            .success(function(data){
+                defered.resolve(data);
+            })
+            .error(function(error){
+                $log.error(error);
+                defered.reject(error);
+            });
+        
+        return defered.promise;
     }
 
     return {
-        getAll: getAll
+        getAll: getAll,
+        getByName: getByFullName
     };
 });

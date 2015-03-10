@@ -61,8 +61,8 @@ var app = angular.module('starter', ['ionic'])
                     }
                 }
             })
-            .state('app.country', {
-                url: '/countries/:name',
+            .state('app.country-index', {
+                url: '/country/:code',
                 views: {
                     'menuContent': {
                         templateUrl: 'views/country.html',

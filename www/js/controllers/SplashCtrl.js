@@ -13,7 +13,7 @@ app.controller('SplashCtrl', function($scope, $state, $timeout, $log, countriesA
         var isAppCashed;
         
         rotateLogo();
-        isAppCashed = localStorageService.get('isAppCached');
+        isAppCashed = localStorageService.get('isAppCached', false);
         $log.debug('SplashC: app is cached - ' + isAppCashed);
         
         // If the countries are cashed just show that badass rotating logo; 

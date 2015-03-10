@@ -4,7 +4,7 @@
     src: url(../fonts/hemi.ttf);
 }
 
-body, div, p, ul, li{
+body, div, p, ul, li, h1, h2, h3{
     margin: 0;
     padding: 0;
 }
@@ -41,7 +41,7 @@ ion-content .scroll{
     width: 320px;
 }
 
-/* Countries styles */
+/* Countries list styles */
 .input-search{
     width: 250px;
     position: absolute;
@@ -61,16 +61,20 @@ button.ion-search{
     font-size: 1.3em !important;
 }
 
-#countries-list ion-item{
-    padding: 5px 15px;
-}
-
 #countries-list ion-item:nth-child(even){
     background: #33CD5F;
 }
 
 #countries-list ion-item:nth-child(even) h2{
     color: white;
+}
+
+#countries-list ion-item a.item-content{
+    background: inherit;
+    padding: 5px 10px;
+    background-image: url("../img/ios7-arrow-thin-right.png");
+    background-repeat: no-repeat;
+    background-position: right;
 }
 
 .country-info p{
@@ -85,3 +89,18 @@ button.ion-search{
 .country-info p span{
     font-style: italic;
 }
+
+/* Country detail styles */
+.main-info{
+    
+}
+
+.col img{
+    width: 180px;
+}
+
+.main-info h3{
+    font-size: 2.2em;
+}
+
+

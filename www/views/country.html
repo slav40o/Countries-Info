@@ -1,8 +1,15 @@
-<ion-view title="Country">
-    <ion-nav-buttons side="left">
-        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-    </ion-nav-buttons>
+<ion-view title="{{country.name}}">
     <ion-content class="has-header">
-        <ion-item>Country</ion-item>
+        <div class="row center">
+            <div class="col">
+                <img class="flag-image" ng-src="{{flagSource}}" alt="{{country.name}}"/>
+            </div>
+            <div class="col col-center">
+                <h3>{{details.nativeName}}</h3>
+            </div>
+        </div>
+        <div class="row">
+            
+        </div>
     </ion-content>
 </ion-view>
