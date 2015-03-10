@@ -1,1 +1,87 @@
-/* Empty. Add your own CSS if you like */
+/* Common styles */
+@font-face {
+    font-family: scream-font;
+    src: url(../fonts/hemi.ttf);
+}
+
+body, div, p, ul, li{
+    margin: 0;
+    padding: 0;
+}
+
+.center{
+    text-align: center;
+    align-content: center;
+}
+
+.button-search{
+    background-image: url('../img/ios7-search-strong.png');
+}
+
+/* Menu styles */
+.bar-balanced h1{
+    color: white;
+}
+
+/* Splashscreen styles */
+
+ion-content .scroll{
+    height: 100%;
+}
+
+.splash-logo{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 60px;
+    left: 0;
+}
+
+.splash-logo img{
+    width: 320px;
+}
+
+/* Countries styles */
+.input-search{
+    width: 250px;
+    position: absolute;
+    right: 0;
+    top 0;
+    height: 35px;
+}
+
+button.ion-search{
+    position: absolute;
+    right: 10px;
+    top: 5px
+}
+
+.country-item{
+    font-family: scream-font;
+    font-size: 1.3em !important;
+}
+
+#countries-list ion-item{
+    padding: 5px 15px;
+}
+
+#countries-list ion-item:nth-child(even){
+    background: #33CD5F;
+}
+
+#countries-list ion-item:nth-child(even) h2{
+    color: white;
+}
+
+.country-info p{
+    display: inline-block;
+    min-width: 160px;
+}
+
+.country-info p strong{
+    color: black;
+}
+
+.country-info p span{
+    font-style: italic;
+}
