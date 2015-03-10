@@ -1,8 +1,21 @@
-<ion-view title="Countries">
-    <ion-nav-buttons side="left">
+<ion-view>
+    <ion-nav-buttons side="primary">
         <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+        <h1 class="title" align-title="left">Countries</h1>
+        <label  ng-show="isSearchActive" class="item item-input input-search"  >
+            <input type="text" placeholder="Search" ng-model="search.name">
+        </label>
+        <button class="button button-icon icon ion-search" on-touch="toggleSearch()"></button>
     </ion-nav-buttons>
     <ion-content class="has-header">
-        <ion-item>Countries</ion-item>
+        <ion-list id="countries-list" ng-class="{searchMode: isSearchActive}">
+            <ion-item ng-repeat="country in countries | filter:search">
+                <h2 class="country-item">{{country.name}}</h2>
+                <div class="country-info">
+                    <p><strong>Population: </strong><span> {{country.population | population}}</span></p>
+                    <p><strong>Capital: </strong><span> {{country.capital}}</span></p>
+                </div>
+            </ion-item>
+        </ion-list>
     </ion-content>
 </ion-view>
