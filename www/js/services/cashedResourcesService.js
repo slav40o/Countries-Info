@@ -5,7 +5,7 @@ app.factory('cashedResourcesService', function($http, $log){
     'use strict';
     
     var countries = {},
-        countriesList = [],
+        countriesList = new Array(300),
         flags = {};
 
     function getFlag(alpha3Code){
@@ -51,7 +51,7 @@ app.factory('cashedResourcesService', function($http, $log){
     
     function setCountries(countriesArray){
         var country, i;
-        countriesList = [];
+        countriesList = new Array(300);
         countries = {};
         
         for(i = 0; i < countriesArray.length; i += 1){

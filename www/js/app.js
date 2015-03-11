@@ -43,12 +43,12 @@ var app = angular.module('starter', ['ionic'])
                 }
 
             })
-            .state('app.search', {
-                url: '/search',
+            .state('app.map', {
+                url: '/map/:lat/:long',
                 views: {
                     'menuContent': {
-                        templateUrl: 'views/search.html',
-                        controller: 'SearchCtrl'
+                        templateUrl: 'views/map.html',
+                        controller: 'MapCtrl'
                     }
                 }
             })

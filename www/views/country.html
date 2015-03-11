@@ -1,4 +1,9 @@
 <ion-view title="{{country.name}}">
+    <ion-nav-buttons>
+        <button side="right" 
+                class="button button-icon icon" 
+                on-touch="showMap()">Map</button>
+    </ion-nav-buttons>
     <ion-content class="has-header">
         <div class="row center">
             <div class="col">
@@ -8,8 +13,86 @@
                 <h3>{{details.nativeName}}</h3>
             </div>
         </div>
-        <div class="row">
-            
+        <div id="info-wrapper">
+            <div class="row detail-info">
+                <div class="col">
+                    <strong>Capital</strong>
+                </div>
+                <div class="col">
+                    <span>{{country.capital}}</span>
+                </div>
+            </div>
+            <div class="row detail-info">
+                <div class="row">
+                    <div class="col">
+                        <strong>Population</strong>
+                    </div>
+                    <div class="col">
+                        <span>{{country.population}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row detail-info">
+                <div class="row">
+                    <div class="col">
+                        <strong>Area</strong>
+                    </div>
+                    <div class="col">
+                        <span>{{details.area}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row detail-info">
+                <div class="row">
+                    <div class="col col-center">
+                        <strong>Region</strong>
+                    </div>
+                    <div class="col">
+                        <span>{{details.region}} -</span>
+                        <span> {{details.subregion}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row detail-info">
+                <div class="row">
+                    <div class="col col-center">
+                        <strong>Currencies</strong>
+                    </div>
+                    <div class="col">
+                        <p ng-repeat="currency in details.currencies">{{currency}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row detail-info">
+                <div class="row">
+                    <div class="col">
+                        <strong>Calling code</strong>
+                    </div>
+                    <div class="col">
+                        <span>{{details.callingCodes[0]}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row detail-info">
+                <div class="row">
+                    <div class="col col-center">
+                        <strong>Languages</strong>
+                    </div>
+                    <div class="col">
+                        <p ng-repeat="language in details.languages">{{language.toUpperCase()}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row detail-info" ng-if="details.borders.length > 0">
+                <div class="row">
+                    <div class="col col-center">
+                        <strong>Borders</strong>
+                    </div>
+                    <div class="col">
+                        <p ng-repeat="border in details.borders">{{border | countryName}}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </ion-content>
 </ion-view>

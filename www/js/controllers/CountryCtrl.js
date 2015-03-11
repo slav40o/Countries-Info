@@ -1,7 +1,7 @@
 /**
  * Created by Slavi on 3/7/2015.
  */
-app.controller('CountryCtrl', function($scope, $log, $stateParams, cashedResourcesService, flagService, countriesApiService){
+app.controller('CountryCtrl', function($scope, $log, $stateParams, $state, cashedResourcesService, flagService, countriesApiService){
     'use strict';
 
     var baseUrl = "http://www.geonames.org/flags/x";
@@ -16,4 +16,12 @@ app.controller('CountryCtrl', function($scope, $log, $stateParams, cashedResourc
             // TO DO: Show error loading
         }
     });
+    
+    $scope.showMap = function(){
+        var lat, long;
+        lat = $scope.details.latlng[0];
+        long = $scope.details.latlng[1];
+        $log.debug(lat + ':' + long); 
+        $state.go('app.map', { lat: lat, long: long });
+    };
 });

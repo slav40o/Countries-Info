@@ -1,13 +1,13 @@
 /**
  * Created by Slavi on 3/8/2015.
  */
-app.controller('AppCtrl', function($scope, $log, $ionicPopup, localStorageService){
+app.controller('AppCtrl', function($scope, $log, $ionicPopup, $state, localStorageService){
     'use strict';
 
-    $scope.showClearCacheConfirm = function() {
+    $scope.showReloadConfirm = function() {
         var confirmPopup = $ionicPopup.confirm({
-            title: 'Clear app cache?',
-            template: 'All cached data will be removed and next load will be slower!',
+            title: 'Reload app data?',
+            template: 'Main countries info will be reloaded!',
             buttons: [{ // Array[Object] (optional). Buttons to place in the popup footer.
                 text: 'Cancel',
                 type: 'button-assertive',
@@ -28,14 +28,15 @@ app.controller('AppCtrl', function($scope, $log, $ionicPopup, localStorageServic
         });
         confirmPopup.then(function(res) {
             if(res) {
-                clearCache();
+                reload();
             } 
         });
     };
 
-    function clearCache(){
+    function reload(){
         localStorageService.set('isAppCached', false);
-        // TO DO: remove countries and flags data from local memory
+        $state.go('splash');
+        window.location.reload();
         $log.debug('AppC: app cache cleared');
     }
 });
