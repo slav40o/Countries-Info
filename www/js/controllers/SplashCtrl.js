@@ -44,6 +44,7 @@ app.controller('SplashCtrl', function($scope, $state, $timeout, $log, countriesA
             var fullCountry = countriesArray[i];
             var country = {
                 alpha3Code: fullCountry.alpha3Code,
+                alpha2Code: fullCountry.alpha2Code,
                 capital: fullCountry.capital,
                 name: fullCountry.name,
                 population: fullCountry.population,

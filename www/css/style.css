@@ -4,6 +4,15 @@
     src: url(../fonts/hemi.ttf);
 }
 
+body.platform-android{
+    font-family: 'RobotoRegular', 'Droid Sans', sans-serif;
+}
+
+
+body.platform-ios{
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
 body, div, p, ul, li, h1, h2, h3{
     margin: 0;
     padding: 0;
@@ -12,10 +21,6 @@ body, div, p, ul, li, h1, h2, h3{
 .center{
     text-align: center;
     align-content: center;
-}
-
-.button-search{
-    background-image: url('../img/ios7-search-strong.png');
 }
 
 /* Menu styles */
@@ -41,40 +46,27 @@ ion-content .scroll{
     width: 320px;
 }
 
+.hasSubheader{
+    top: 88px;
+}
+
 /* Countries list styles */
-.input-search{
-    width: 250px;
-    position: absolute;
-    right: 0;
-    top 0;
-    height: 35px;
-}
-
-button.ion-search{
-    position: absolute;
-    right: 10px;
-    top: 5px
-}
-
 .country-item{
-    font-family: scream-font;
     font-size: 1.3em !important;
 }
 
-#countries-list ion-item:nth-child(even){
+#countries-list ion-item i{
+    position: absolute;
+    top: 20px;
+    right: 10px;
+}
+
+#countries-list ion-item:nth-child(even) a{
     background: #33CD5F;
 }
 
 #countries-list ion-item:nth-child(even) h2{
     color: white;
-}
-
-#countries-list ion-item a.item-content{
-    background: inherit;
-    padding: 5px 10px;
-    background-image: url("../img/ios7-arrow-thin-right.png");
-    background-repeat: no-repeat;
-    background-position: right;
 }
 
 .country-info p{
@@ -96,7 +88,6 @@ button.ion-search{
     width: 180px;
     height: 100px;
 }
-
 
 .detail-info{
     margin: 10px auto;

@@ -7,7 +7,7 @@ app.directive('focusMe', function($timeout, $parse) {
 //        console.log('value=',value);
         if(value === true) { 
           $timeout(function() {
-            element[0].focus(); 
+            element[0].focus();
           });
         }
       });

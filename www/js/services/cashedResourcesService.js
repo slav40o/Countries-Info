@@ -27,6 +27,7 @@ app.factory('cashedResourcesService', function($http, $log){
     }
     
     function addCountries(countriesArray){
+        var i;
         for(i = 0; i < countriesArray.length; i += 1){
             addCountry(countriesArray[i]);
         }
@@ -45,8 +46,8 @@ app.factory('cashedResourcesService', function($http, $log){
     }
     
     function getAllCountries(){
-        return countriesList.slice();
         $log.debug('CashResS: all countries fetched');
+        return countriesList.slice();
     }
     
     function setCountries(countriesArray){

@@ -4,6 +4,7 @@
 app.controller('AppCtrl', function($scope, $log, $ionicPopup, $state, localStorageService){
     'use strict';
 
+    // Just for testing
     $scope.showReloadConfirm = function() {
         var confirmPopup = $ionicPopup.confirm({
             title: 'Reload app data?',

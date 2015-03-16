@@ -1,8 +1,11 @@
-<ion-view title="{{country.name}}">
-    <ion-nav-buttons>
+<ion-view title="{{country.name}}"> 
+    <ion-nav-buttons side="right">
         <button side="right" 
+                ng-disabled="isDataLoaing"
                 class="button button-icon icon" 
                 on-touch="showMap()">Map</button>
+        <button class="button button-icon icon ion-ios-home"
+                on-touch="setAsHome()"></button>
     </ion-nav-buttons>
     <ion-content class="has-header">
         <div class="row center">
