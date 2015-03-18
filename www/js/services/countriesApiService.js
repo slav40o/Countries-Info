@@ -21,45 +21,61 @@ app.factory('countriesApiService', function($http, $q, $log){
         return defered.promise;
     }
 
-    // /name/:subname
-    function getBySubstring(subname){
-            
+    //// /name/:subname
+    //function getBySubstring(subname){
+    //
+    //}
+    //
+    //// /alpha/co
+    //function getByCallcode(code){
+    //
+    //}
+    //
+    //// /lang/et    -   ISO 639-1 Language
+    //function getByLanguage(lang){
+    //
+    //}
+    //
+    //// /alpha?codes=co;rus;no
+    //function getByCodes(codes){
+    //
+    //}
+    
+    // alpha/bg
+    function getByCode(code){
+        var defered = $q.defer();
+        
+        $http.get(baseUrl + '/alpha/' + code)
+            .success(function(data){
+                defered.resolve(data);
+            })
+            .error(function(error){
+                $log.error(error);
+                defered.reject(error);
+            });
+        
+        return defered.promise;
     }
 
-    // /alpha/co
-    function getByCallcode(code){
-
-    }
-
-    // /lang/et    -   ISO 639-1 Language
-    function getByLanguage(lang){
-
-    }
-
-    // /alpha?codes=co;rus;no
-    function getByCodes(codes){
-
-    }
-
-    // /currency/eur
-    function getByCurrency(curency){
-
-    }
-
-    // /capital/tallinn
-    function getByCapitalCity(city){
-
-    }
-
-    // /region/africa
-    function getByRegion(region){
-
-    }
-
-    // /subregion/western asia
-    function getBySubregion(subregion){
-
-    }
+    //// /currency/eur
+    //function getByCurrency(curency){
+    //
+    //}
+    //
+    //// /capital/tallinn
+    //function getByCapitalCity(city){
+    //
+    //}
+    //
+    //// /region/africa
+    //function getByRegion(region){
+    //
+    //}
+    //
+    //// /subregion/western asia
+    //function getBySubregion(subregion){
+    //
+    //}
 
     // /name/aruba?fullText=true
     function getByFullName(name){
@@ -79,6 +95,7 @@ app.factory('countriesApiService', function($http, $q, $log){
 
     return {
         getAll: getAll,
-        getByName: getByFullName
+        getByName: getByFullName,
+        getByCode: getByCode
     };
 });

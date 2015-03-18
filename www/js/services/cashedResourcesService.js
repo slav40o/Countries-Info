@@ -5,18 +5,7 @@ app.factory('cashedResourcesService', function($http, $log){
     'use strict';
     
     var countries = {},
-        countriesList = new Array(300),
-        flags = {};
-
-    function getFlag(alpha3Code){
-        return flags[alpha3Code];
-    }
-    
-    function addFlag(alpha3Code, flag){
-        if(!(flags[alpha3Code])){
-            flag[alpha3Code] = flag;
-        }
-    }
+        countriesList = new Array(300);
     
     function addCountry(country){
         if(!(countries[country.alpha3Code])){

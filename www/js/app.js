@@ -44,7 +44,7 @@ var app = angular.module('starter', ['ionic', 'ngCordova'])
 
             })
             .state('app.map', {
-                url: '/map/:lat/:long',
+                url: '/map/:lat/:long/:area',
                 views: {
                     'menuContent': {
                         templateUrl: 'views/map.html',

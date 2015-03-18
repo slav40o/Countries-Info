@@ -1,7 +1,7 @@
 /**
  * Created by Slavi on 3/7/2015.
  */
-app.controller('CountriesCtrl', function($scope, $ionicScrollDelegate, cashedResourcesService){
+app.controller('CountriesCtrl', function($scope, $log, $ionicScrollDelegate, cashedResourcesService){
     'use strict';
 
     $scope.isSearchActive = false;
@@ -16,5 +16,7 @@ app.controller('CountriesCtrl', function($scope, $ionicScrollDelegate, cashedRes
             $ionicScrollDelegate.scrollTop(true);
             $scope.isSearchActive = true;
         }
+        
+        $log.debug("CountriesCtrl: search toggled");
     }
 });

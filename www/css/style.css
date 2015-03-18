@@ -1,4 +1,7 @@
-/* Common styles */
+/* 
+    Common styles 
+*/
+
 @font-face {
     font-family: scream-font;
     src: url(../fonts/hemi.ttf);
@@ -23,7 +26,11 @@ body, div, p, ul, li, h1, h2, h3{
     align-content: center;
 }
 
-/* Menu styles */
+
+/*
+    Menu styles 
+*/
+
 .bar-balanced h1{
     color: white;
 }
@@ -49,6 +56,32 @@ ion-content .scroll{
 .hasSubheader{
     top: 88px;
 }
+
+
+/* 
+    Home country styles 
+*/
+
+.country-photos-list ion-item{
+    border: none;
+    padding: 5px;
+    border-bottom: 1px solid grey;
+    padding-bottom: 20px;
+}
+
+.country-photos-list h3{
+    font-size: 1.1em;
+}
+
+.country-photo{
+    background-image: url("../img/ios7-download-outline.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 5px;
+    min-width: 360px;
+    min-height: 200px;
+}
+
 
 /* Countries list styles */
 .country-item{

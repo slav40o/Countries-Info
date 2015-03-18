@@ -1,7 +1,7 @@
 /**
  * Created by Slavi on 3/2/2015.
  */
-app.controller('SplashCtrl', function($scope, $state, $timeout, $log, countriesApiService, localStorageService, cashedResourcesService){
+app.controller('SplashCtrl', function($scope, $state, $timeout, $log, $ionicPopup, countriesApiService, localStorageService, cashedResourcesService){
     'use strict';
 
     $scope.degrees = 0;
@@ -9,13 +9,17 @@ app.controller('SplashCtrl', function($scope, $state, $timeout, $log, countriesA
 
     initialize();
 
+    /*
+        Initializes initial app data. Checks if main countries data is already cached to the device.
+        Loads them into cashedResourcesService.
+    */
     function initialize(){
         var isAppCashed;
-        
+
         rotateLogo();
         isAppCashed = localStorageService.get('isAppCached', false);
         $log.debug('SplashC: app is cached - ' + isAppCashed);
-        
+
         // If the countries are cashed just show that badass rotating logo; 
         if(isAppCashed){
             $timeout(function(){
@@ -27,16 +31,21 @@ app.controller('SplashCtrl', function($scope, $state, $timeout, $log, countriesA
         else {
             countriesApiService.getAll()
                 .then(function(data){
-                    var countries = extractMainCountriesInfo(data);
-                    cashedResourcesService.setCountries(countries);
-                    localStorageService.setObject('savedCountries', countries);
-                    localStorageService.set('isAppCached', true);
-                    $log.debug('SplashC: fetched, loaded and cached countries');
-                    goToMain();
+                var countries = extractMainCountriesInfo(data);
+                cashedResourcesService.setCountries(countries);
+                localStorageService.setObject('savedCountries', countries);
+                localStorageService.set('isAppCached', true);
+                $log.debug('SplashC: fetched, loaded and cached countries');
+                goToMain();
+            }, function(error){
+                showErrorPopup(error);
             });
         }
     }
-    
+
+    /*
+
+    */
     function extractMainCountriesInfo(countriesArray){
         var i,
             countries = [];
@@ -50,18 +59,24 @@ app.controller('SplashCtrl', function($scope, $state, $timeout, $log, countriesA
                 population: fullCountry.population,
                 languages: fullCountry.languages
             };
-            
+
             countries.push(country);
         }
-        
+
         return countries;
     }
-    
+
+    /*
+        Navigates to main(home) screen
+    */
     function goToMain(){
         $scope.isRotating = false;
         $state.go('app.main');
     }
 
+    /*
+        Starts a loop that rotates tha splashscreen logo
+    */
     function rotateLogo(){
         $scope.degrees += 0.2;
 
@@ -71,4 +86,21 @@ app.controller('SplashCtrl', function($scope, $state, $timeout, $log, countriesA
             }, 10);
         }
     }
+
+    /*
+        Shows error when there is no data cached and there was a problem with conection to the server.
+    */
+    function showErrorPopup() {
+        $scope.data = {};
+
+        // An elaborate, custom popup
+        var alertPopup = $ionicPopup.alert({
+            template: '<p>Please check your network connection.</p>',
+            title: 'Error while conencting to the server!'
+        });
+        alertPopup.then(function() {
+            goToMain();
+        });
+    }
+
 });
