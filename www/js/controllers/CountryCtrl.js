@@ -1,10 +1,12 @@
 /**
  * Created by Slavi on 3/7/2015.
  */
-app.controller('CountryCtrl', function($scope, $log, $stateParams, $state, $ionicPopup, $ionicLoading, cashedResourcesService, countriesApiService, localStorageService){
+app.controller('CountryCtrl', function($scope, $log, $stateParams, $state, $ionicPopup, $ionicLoading,
+                                       cashedResourcesService, countriesApiService, localStorageService, fileService){
     'use strict';
 
-    var baseUrl = "http://www.geonames.org/flags/x";
+    var deviceInformation = ionic.Platform.device(),
+        baseUrl = "http://www.geonames.org/flags/x";
     $ionicLoading.show({
         noBackdrop: true
     });
@@ -12,8 +14,7 @@ app.controller('CountryCtrl', function($scope, $log, $stateParams, $state, $ioni
     $scope.isDataLoaing = true;
     $scope.country = cashedResourcesService.getCountryByAlpha3Code($stateParams.code);
     $scope.flagSource = baseUrl + '/' + $scope.country.alpha2Code.toLowerCase() + '.gif';
-    
-    
+
     /* 
         Loads full info for the selected country
     */
@@ -32,6 +33,8 @@ app.controller('CountryCtrl', function($scope, $log, $stateParams, $state, $ioni
         $log.error("CountryCtrl: Error getting details for {0}".format($scope.country.name));
         showErrorPopup(error)
     });
+
+    $scope.photos = fileService.getImagesPaths($scope.country.name);
 
     /* 
         Sets current country as home and redirects to home screen

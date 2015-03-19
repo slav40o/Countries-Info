@@ -21,9 +21,24 @@ body, div, p, ul, li, h1, h2, h3{
     padding: 0;
 }
 
+.bar-header > .title{
+    font-weight: 600;
+}
+
 .center{
     text-align: center;
     align-content: center;
+}
+
+div.bar > .title-left{
+    padding-left: 20px;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+div.bar-footer > .title-right{
+    padding-right: 45px;
+    font-size: 1.1em;
 }
 
 
@@ -35,7 +50,10 @@ body, div, p, ul, li, h1, h2, h3{
     color: white;
 }
 
-/* Splashscreen styles */
+
+/*
+    Splashscreen styles
+*/
 
 ion-content .scroll{
     height: 100%;
@@ -62,6 +80,15 @@ ion-content .scroll{
     Home country styles 
 */
 
+
+input.page-input{
+    display: inline-block;
+    width: 60px;
+    padding: 5px;
+    text-align: right;
+    height: 25px;
+}
+
 .country-photos-list ion-item{
     border: none;
     padding: 5px;
@@ -80,6 +107,7 @@ ion-content .scroll{
     border-radius: 5px;
     min-width: 360px;
     min-height: 200px;
+    max-width: 95%;
 }
 
 

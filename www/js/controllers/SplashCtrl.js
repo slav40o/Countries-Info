@@ -1,7 +1,7 @@
 /**
  * Created by Slavi on 3/2/2015.
  */
-app.controller('SplashCtrl', function($scope, $state, $timeout, $log, $ionicPopup, countriesApiService, localStorageService, cashedResourcesService){
+app.controller('SplashCtrl', function($scope, $state, $timeout, $log, $ionicPopup, $ionicPlatform, countriesApiService, localStorageService, cashedResourcesService){
     'use strict';
 
     $scope.degrees = 0;

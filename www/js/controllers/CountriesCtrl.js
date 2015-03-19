@@ -1,7 +1,7 @@
 /**
  * Created by Slavi on 3/7/2015.
  */
-app.controller('CountriesCtrl', function($scope, $log, $ionicScrollDelegate, cashedResourcesService){
+app.controller('CountriesCtrl', function($scope, $log, $ionicScrollDelegate, $cordovaFile, cashedResourcesService){
     'use strict';
 
     $scope.isSearchActive = false;

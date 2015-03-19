@@ -6,11 +6,17 @@
         <button class="button" ui-sref="app.countries">Change</button>
     </ion-nav-buttons>
     <div class="bar bar-subheader">
-        <h2 class="title" ui-sref="app.country-index({code: country.alpha3Code})">{{country.name}}</h2>
+        <h2 class="title title-left" ui-sref="app.country-index({code: country.alpha3Code})">{{country.name}}</h2>
+        <h2 class="title title-right">{{page}}</h2>
     </div>
     <ion-content class="has-subheader center has-footer">
-        <div ng-hide="isHomeSet">
-            <h2>Home country not set!</h2>
+        <div ng-hide="isHomeSet" class="center">
+            <h2 ca>Home country not set!</h2>
+        </div>
+        <div class="center" ng-show="isServerWrong">
+            <h2>No results found!</h2>
+            <p>Sorry for that but the server is a big fat liar :)</p>
+            <p>Please try with lower page number.</p>
         </div>
         <ion-list class="country-photos-list">
             <ion-item collection-repeat="photo in photos">
@@ -21,13 +27,18 @@
             </ion-item>
         </ion-list>
         <button class="button button-block button-calm"
-                on-touch="loadMore()" 
+                on-touch="loadImages(false)"
                 ng-show="isHomeSet" 
-                ng-disabled="!hasMore">Load more</button>
+                ng-disabled="!hasMore">Load page {{page + 1}}</button>
     </ion-content>
     <div class="bar bar-footer bar-assertive">
         <button class="button button-icon icon ion-arrow-up-c" on-touch="scrollToTop()"></button>
-        <div class="title"></div>
         <button class="button button-icon icon ion-arrow-down-c" on-touch="scrollToBottom()"></button>
+        <div class="title title-right">
+            <span>{{pagesCount}} pages </span>
+            <span>starting from:</span>
+            <input class="page-input item-input-wrapper" type="number" ng-model="startPage"/>
+        </div>
+        <button class="button button-icon icon ion-loop" on-touch="reloadImagesFromPage()"></button>
     </div>
 </ion-view>

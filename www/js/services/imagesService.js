@@ -17,6 +17,7 @@ app.factory('imagesService', function($http, $q, $log){
         $http.get(url)
             .success(function(data){
                 $log.debug('ImagesService: Images from {0} to {1} loaded'.format(opt.from, opt.to));
+                $log.info(data);
                 defered.resolve(data);
             })
             .error(function(error){

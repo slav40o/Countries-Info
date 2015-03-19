@@ -47,9 +47,9 @@ app.controller('AppCtrl', function($scope, $log, $ionicPopup, $state, $ionicLoad
             
                 geocoder.geocode({'latLng': latlng}, function(results, status) {
                     if (status == google.maps.GeocoderStatus.OK) {
-                        if (results.length >= 1) {
+                        if (results[7]) {
                             $log.debug("AppCtrl: address from geocoder recieved");
-                            var alpha2Code = results[results.length - 1].address_components[0].short_name;
+                            var alpha2Code = results[7].address_components[0].short_name;
                             countriesApiService.getByCode(alpha2Code)
                                 .then(function(data){
                                     localStorageService.setObject('home', data);
@@ -65,10 +65,6 @@ app.controller('AppCtrl', function($scope, $log, $ionicPopup, $state, $ionicLoad
                                 $cordovaToast.showLongBottom('Unnable to get country info!');
                                 $ionicLoading.hide();
                             });
-                        }
-                        else{
-                            $log.log(results);
-                            $cordovaToast.showLongBottom('You are in the middle of nowhere!');
                         }
                     } 
                     else {
