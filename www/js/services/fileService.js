@@ -1,29 +1,41 @@
-app.factory('fileService', function($http, $q, $log, $ionicPlatform, $cordovaToast, $cordovaFile, $cordovaFileTransfer){
-
-    var appDirectory,   // relative path used by $cordovaFile
-        fullDirectory;  // full path used by $cordovaFileTransfer
+app.factory('fileService', function($http, $q, $log, $cordovaFile, $cordovaFileTransfer, $ionicPlatform,$ionicPopup, deviceService){
 
     /*
-        Set app directories depending on the platform
+        Defines application directories and directory for the Pictures (Tested only on android)
+     */
+
+    var appDirectory,   // relative path used by $cordovaFile
+        fullDirectory,  // full path used by $cordovaFileTransfer
+        pictureDirectory,
+        fullPictureDirectory;
+
+    /*
+        Set app directories depending on the platform. Not finished and tested for iOS
      */
     $ionicPlatform.ready(function(){
         var myFsRootDirectory1 = 'file:///storage/emulated/0/',   // path for tablet
             myFsRootDirectory2 = 'file:///storage/sdcard0/', // path for phone
             myFsRootDirectory3 = 'file:///storage/sdcard/'; // path for emulator Bluestacks
 
-        if (ionic.Platform.isAndroid()) {
+        if (deviceService.isAndroid()) {
             fullDirectory = cordova.file.externalDataDirectory;
+            pictureDirectory = 'Pictures/';
+
             if (fullDirectory.indexOf(myFsRootDirectory1) === 0) {
                 appDirectory = fullDirectory.replace(myFsRootDirectory1, '');
+                fullPictureDirectory = myFsRootDirectory1 + 'Pictures/';
             }
             else if (fullDirectory.indexOf(myFsRootDirectory2) === 0) {
                 appDirectory = fullDirectory.replace(myFsRootDirectory2, '');
+                fullPictureDirectory = myFsRootDirectory2 + 'Pictures/';
+
             }
             else if (fullDirectory.indexOf(myFsRootDirectory3) === 0) {
                 appDirectory = fullDirectory.replace(myFsRootDirectory3, '');
+                fullPictureDirectory = myFsRootDirectory3 + 'Pictures/';
             }
         }
-        if (ionic.Platform.isIOS()) {
+        if (deviceService.isIOS()) {
             // I use cordova.file.documentsDirectory because this url is for IOS (NOT backed on iCloud) devices
             fullDirectory = cordova.file.documentsDirectory;
             appDirectory = '';
@@ -36,23 +48,24 @@ app.factory('fileService', function($http, $q, $log, $ionicPlatform, $cordovaToa
     function saveImageFile(country, image) {
         var deferred = $q.defer();
 
-        if (ionic.Platform.isAndroid() || ionic.Platform.isIOS()) {
+        if (deviceService.isMobile()) {
             var photoUrl = image.url,
-                targetDirectory = appDirectory + country.name + '/',
-                targetPath = '{0}{1}/{2}.jpg'.format(fullDirectory, country.name, image.title),
+                targetDirectory = pictureDirectory + country.name + '/',
+                targetPath = '{0}{1}/{2}.jpg'.format(fullPictureDirectory, country.name, image.title),
                 trustHosts = true,
                 options = {};
 
             $cordovaFile.createDir(targetDirectory).then(function(){
                 $cordovaFileTransfer.download(photoUrl, targetPath, trustHosts, options).then (function(success) {
                     deferred.resolve(success);
-                }, function(err){
-                    $log.error(err);
-                    deferred.reject("Unable to save file");
+                }, function(error){
+                    $log.error(JSON.stringify(error));
+                    showError(JSON.stringify(error));
+                    deferred.reject("Unable to save file!");
                 });
-            }, function(err){
+            }, function(error){
                 deferred.reject("Unable to create directory!");
-                $log.error(err);
+                $log.error(JSON.stringify(error));
             });
         }
         else {
@@ -62,14 +75,24 @@ app.factory('fileService', function($http, $q, $log, $ionicPlatform, $cordovaToa
         return deferred.promise;
     }
 
+     function showError(error) {
+        var alertPopup = $ionicPopup.alert({
+            title: 'FUCK!',
+            template: error
+        });
+
+        alertPopup.then(function() {
+
+        });
+     }
+
     // TO DO!
     function getImagesPaths(countryName){
-        $cordovaFile.checkDir(fullDirectory, countryName + '/')
+        $cordovaFile.checkDir(pictureDirectory, countryName)
             .then(function (success) {
-                $cordovaToast.showLongBottom(success);
+                $log.debug(JSON.stringify(success));
             }, function (error) {
                 $log.error(JSON.stringify(error));
-                $cordovaToast.showLongBottom(error);
             });
     }
 

@@ -1,7 +1,7 @@
 /**
  * Created by Slavi on 3/7/2015.
  */
-app.controller('MapCtrl', function($scope, $log, $ionicLoading, $compile, $stateParams, $window) {
+app.controller('MapCtrl', function($scope, $log, $ionicLoading, $compile, $stateParams, deviceService) {
     function initialize() {
         var myLatlng = new google.maps.LatLng($stateParams.lat, $stateParams.long);
         var zoom = getZoom($stateParams.area);
@@ -22,7 +22,7 @@ app.controller('MapCtrl', function($scope, $log, $ionicLoading, $compile, $state
         There shoud be more optimized way. 90px on zoom level 12 is 2 km. 
     */
     function getZoom(area){
-        var width = $window.innerWidth,
+        var width = deviceService.width,
             multiplier = width / 90,
             countryWidth = Math.sqrt(area),
             zoomLevel = 16,

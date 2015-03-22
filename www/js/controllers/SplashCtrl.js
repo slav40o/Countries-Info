@@ -1,7 +1,7 @@
 /**
  * Created by Slavi on 3/2/2015.
  */
-app.controller('SplashCtrl', function($scope, $state, $timeout, $log, $ionicPopup, $ionicPlatform, countriesApiService, localStorageService, cashedResourcesService){
+app.controller('SplashCtrl', function($scope, $state, $timeout, $log, $ionicPopup, $ionicHistory, $ionicPlatform, countriesApiService, localStorageService, cashedResourcesService){
     'use strict';
 
     $scope.degrees = 0;
@@ -14,11 +14,14 @@ app.controller('SplashCtrl', function($scope, $state, $timeout, $log, $ionicPopu
         Loads them into cashedResourcesService.
     */
     function initialize(){
-        var isAppCashed;
-
         rotateLogo();
-        isAppCashed = localStorageService.get('isAppCached', false);
+        var isAppCashed = localStorageService.get('isAppCached', false);
         $log.debug('SplashC: app is cached - ' + isAppCashed);
+        $ionicPlatform.registerBackButtonAction(function (e) {
+            $ionicHistory.goBack();
+            e.preventDefault();
+        }, 100);
+
 
         // If the countries are cashed just show that badass rotating logo; 
         if(isAppCashed){

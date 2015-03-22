@@ -1,0 +1,31 @@
+<ion-view title="Settings">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+    <ion-content class="has-header">
+        <ion-list>
+            <ion-item>
+            <ion-toggle ng-change="optionsChange()"
+                        ng-model="settings.isSavingPhotoEnabled"
+                        class="toggle-large"
+                        toggle-class="toggle-balanced">Save pictures on hold</ion-toggle>
+            <p class="setting-info">Enables saving pictures to your gallery</p>
+         </ion-item>
+            <ion-item>
+                <ion-toggle ng-change="optionsChange()"
+                            ng-model="settings.hqPictures"
+                            class="toggle-large"
+                            toggle-class="toggle-balanced">Show pictures with HQ</ion-toggle>
+                <p class="setting-info">Use more traffic and slows down the application</p>
+            </ion-item>
+            <ion-item>
+                <ion-toggle ng-change="optionsChange()"
+                            ng-model="settings.hqPicturesSave"
+                            class="toggle-large"
+                            toggle-class="toggle-balanced">Save pictures in HQ</ion-toggle>
+                <p class="setting-info">If you want a better pictures saved to your phone</p>
+            </ion-item>
+
+        </ion-list>
+    </ion-content>
+</ion-view>

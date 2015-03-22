@@ -3,11 +3,44 @@
  */
 
 app.controller('MainCtrl',function($scope, $log, $timeout, $ionicScrollDelegate, $ionicLoading, $cordovaToast,
-                                   imagesService, localStorageService, fileService){
+                                   imagesService, localStorageService, fileService, deviceService){
     'use strict';
 
-    var deviceInformation = ionic.Platform.device(),
-        isRealPageNumberFound = false;
+    // Often server shows wrong photos count. When user reaches the real last page this is set to true until next country reload
+    var isRealPageNumberFound = false;
+
+    $log.info('-----------device information/--------');
+    $log.info('Platform ->' + deviceService.platform());
+    $log.info('Mobile ->' + deviceService.isMobile());
+    $log.info('Web ->' + deviceService.isWeb());
+    $log.info('Height ->' + deviceService.height());
+    $log.info('Width ->' + deviceService.width());
+    $log.info('-----------/device information--------');
+
+    /*
+        Scope variables. They will be set in loadCountry function which is called on every appearence of the view
+     */
+
+    // Info about photos
+    $scope.photos = [];
+
+    // Used to show spinner while downloading image
+    $scope.isSavingPhoto = false;
+
+    // Shows if a home country is set. It has value false after firs launch until the first home country is set
+    $scope.isHomeSet = false;
+
+    // Shows from which page the photos will be fetched
+    $scope.startPage = 1;
+
+    // Full data ata about the home country
+    $scope.country = {};
+
+    // Current loaded page
+    $scope.page = 0;
+
+    // Shows if there is more photos that could be loaded
+    $scope.hasMore = true;
 
     /*
         Event handler to check if there is a change in the home country
@@ -48,14 +81,14 @@ app.controller('MainCtrl',function($scope, $log, $timeout, $ionicScrollDelegate,
             reloadData(data, isReloading);
         }, function(error){
             $ionicLoading.hide();
-            $log.error('MainCtrl: Error occured whie loading images! ' + error);
+            $log.error('MainCtrl: Error occurred while loading images! ' + error);
 
-            if(Object.keys(deviceInformation).length == 0){
-                // TO DO: show eventually toast on web
-            }
-            else{
+            if(deviceService.isMobile()){
                 $cordovaToast.showLongBottom('Error occurred while loading images!');
                 $scope.startPage = 1;
+            }
+            else{
+                // TO DO: show eventually toast on web
             }
         });
     };
@@ -89,25 +122,57 @@ app.controller('MainCtrl',function($scope, $log, $timeout, $ionicScrollDelegate,
         $scope.loadImages(true);
     };
 
+    /*
+        Saves photo to phone memory.Changes url depending on what quality user desire (medium or original - hq)
+     */
     $scope.savePhoto = function(index){
-        var photo = $scope.photos[index];
-        var imageData = {
-            title: photo.photo_title,
-            url: photo.photo_file_url.replace('&size=medium&', '&size=large&')
+        if(!(deviceService.getSettings().isSavingPhotoEnabled)){
+            if(deviceService.isMobile()){
+                $cordovaToast.showLongBottom('Saving images not enabled!');
+            }
+            else{
+                alert('Saving not enabled!');
+            }
+
+            return;
+        }
+
+        $scope.isSavingPhoto = true;
+        var photo = $scope.photos[index],
+            url = getPhotoUrl(photo),
+            imageData = {
+                title: photo.photo_title,
+                url: url
         };
-        if(Object.keys(deviceInformation).length > 0){
-            $cordovaToast.showLongBottom('Saving image...');
+
+        if(deviceService.isMobile()){
+            $cordovaToast.showShortBottom('Saving image...');
             fileService.addImage($scope.country, imageData).then(function(){
-                $cordovaToast.showLongBottom('Image saved!');
+                $cordovaToast.showShortBottom('Image saved!');
+                $scope.isSavingPhoto = false;
             }, function(err){
-                $cordovaToast.showLongBottom('Image NOT saved!');
-                $cordovaToast.showLongBottom(err);
+                $cordovaToast.showShortBottom('Image NOT saved! ' + err);
+                $log.error(JSON.stringify(err));
+                $scope.isSavingPhoto = false;
             });
         }
         else {
             $log.debug('MainCtrl: Not a mobile device. Photo is not saved');
+            $scope.isSavingPhoto = false;
+            alert('Not a mobile device');
         }
     };
+
+    function getPhotoUrl(photo){
+        // "http://static.panoramio.com/photos/original/84458375.jpg"
+        var photoSetting = deviceService.getSettings(),
+            quality = photoSetting.hqPicturesSave ? 'original' : 'medium',
+            id, startIndex, endIndex;
+        startIndex = photo.photo_file_url.lastIndexOf('/') + 1;
+        endIndex = photo.photo_file_url.lastIndexOf('.');
+        id = photo.photo_file_url.substr(startIndex, endIndex - startIndex);
+        return "http://static.panoramio.com/photos/{0}/{1}.jpg".format(quality, id);
+    }
 
     /* 
         Resets a home country. Sets current $scope.page to 0 and loads images for it
@@ -123,6 +188,8 @@ app.controller('MainCtrl',function($scope, $log, $timeout, $ionicScrollDelegate,
         }
 
         isRealPageNumberFound = false;
+
+
         $scope.isHomeSet = true;
         $scope.startPage = 1;
         $scope.country = country;
@@ -138,12 +205,16 @@ app.controller('MainCtrl',function($scope, $log, $timeout, $ionicScrollDelegate,
      */
     function reloadData(data, isReloading){
         if(isReloading){
+            // If last page is not found show the count based on server info(which is probably wrong)
             if(!isRealPageNumberFound){
                 $scope.pagesCount = Math.round(data.count / 20);
             }
 
+            // TO show error message to user when data is empty
             $scope.isServerWrong = !(data.has_more) && data.photos.length <= 0;
             $scope.photos = data.photos;
+
+            // Wait enough so scroll could activate properly
             $timeout(function(){ $ionicScrollDelegate.scrollTop(true); });
         }
         else{

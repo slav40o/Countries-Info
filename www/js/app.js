@@ -70,6 +70,15 @@ var app = angular.module('starter', ['ionic', 'ngCordova'])
                     }
                 }
             })
+            .state('app.settings', {
+                url: '/settings',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'views/settings.html',
+                        controller: 'SettingsCtrl'
+                    }
+                }
+            })
             .state('app.about', {
                 url: '/about',
                 views: {

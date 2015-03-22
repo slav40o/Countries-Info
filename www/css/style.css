@@ -31,7 +31,7 @@ body, div, p, ul, li, h1, h2, h3{
 }
 
 div.bar > .title-left{
-    padding-left: 20px;
+    padding-left: 25px;
     font-weight: bold;
     font-size: 1.3em;
 }
@@ -80,12 +80,17 @@ ion-content .scroll{
     Home country styles 
 */
 
+.bar-subheader > ion-spinner{
+    position: absolute;
+    left: 5px;
+}
 
 input.page-input{
     display: inline-block;
     width: 60px;
-    padding: 5px;
-    text-align: right;
+    padding: 0;
+    font-size: 1.2em;
+    text-align: center;
     height: 25px;
 }
 
@@ -106,28 +111,32 @@ input.page-input{
     background-position: center;
     border-radius: 5px;
     min-width: 360px;
-    min-height: 200px;
+    min-height: 300px;
     max-width: 95%;
 }
 
 
-/* Countries list styles */
+/*
+    Countries list styles
+*/
+
 .country-item{
-    font-size: 1.3em !important;
+    padding: 10px;
+}
+
+.country-item a.item-content{
+    padding: 15px 10px 5px 10px;
+    background: #33CD5F;
+}
+
+.country-item h2{
+    font-size: 1.35em;
 }
 
 #countries-list ion-item i{
     position: absolute;
     top: 20px;
-    right: 10px;
-}
-
-#countries-list ion-item:nth-child(even) a{
-    background: #33CD5F;
-}
-
-#countries-list ion-item:nth-child(even) h2{
-    color: white;
+    right: 20px;
 }
 
 .country-info p{
@@ -136,14 +145,17 @@ input.page-input{
 }
 
 .country-info p strong{
-    color: black;
+    color: white;
 }
 
 .country-info p span{
     font-style: italic;
 }
 
-/* Country detail styles */
+
+/*
+    Country detail styles
+ */
 
 .col img.flag-image{
     width: 180px;
@@ -158,7 +170,10 @@ input.page-input{
     border-radius: 5px;
 }
 
-/* Map styles */
+
+/*
+    Map styles
+*/
 #map {
   width: 100%;
   height: 100%;
@@ -166,4 +181,16 @@ input.page-input{
 
 .scroll {
   height: 100%;
+}
+
+
+/*
+    Settings styles
+*/
+
+.setting-info{
+    border:1px solid lightgray;
+    text-align: right;
+    padding-right: 15px;
+    border-bottom-left-radius: 50px;
 }

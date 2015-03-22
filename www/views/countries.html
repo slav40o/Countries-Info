@@ -13,9 +13,10 @@
     </div>
     <ion-content class="has-header" ng-class="{hasSubheader: isSearchActive}">
         <ion-list id="countries-list" ng-class="{searchMode: isSearchActive}">
-            <ion-item collection-repeat="country in countries | filter:search"
+            <ion-item class="country-item" 
+                      collection-repeat="country in countries | filter:search"
                       ui-sref="app.country-index({code: country.alpha3Code})">
-                <h2 class="country-item">{{country.name}}</h2>
+                <h2>{{country.name}}</h2>
                 <div class="country-info">
                     <p><strong>Population: </strong><span> {{country.population | population}}</span></p>
                     <p><strong>Capital: </strong><span> {{country.capital}}</span></p>

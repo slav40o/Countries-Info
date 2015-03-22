@@ -6,12 +6,15 @@
         <button class="button" ui-sref="app.countries">Change</button>
     </ion-nav-buttons>
     <div class="bar bar-subheader">
-        <h2 class="title title-left" ui-sref="app.country-index({code: country.alpha3Code})">{{country.name}}</h2>
+        <ion-spinner icon="spiral"  ng-show="isSavingPhoto" ></ion-spinner>
         <h2 class="title title-right">{{page}}</h2>
+        <h2 class="title title-left"
+            ng-show="isHomeSet"
+            ui-sref="app.country-index({code: country.alpha3Code})">{{country.name}}</h2>
     </div>
     <ion-content class="has-subheader center has-footer">
         <div ng-hide="isHomeSet" class="center">
-            <h2 ca>Home country not set!</h2>
+            <h2 class="title">Home country not set!</h2>
         </div>
         <div class="center" ng-show="isServerWrong">
             <h2>No results found!</h2>
