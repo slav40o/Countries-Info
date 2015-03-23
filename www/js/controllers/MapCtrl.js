@@ -22,7 +22,7 @@ app.controller('MapCtrl', function($scope, $log, $ionicLoading, $compile, $state
         There shoud be more optimized way. 90px on zoom level 12 is 2 km. 
     */
     function getZoom(area){
-        var width = deviceService.width,
+        var width = deviceService.width(),
             multiplier = width / 90,
             countryWidth = Math.sqrt(area),
             zoomLevel = 16,

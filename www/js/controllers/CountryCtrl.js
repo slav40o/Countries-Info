@@ -2,7 +2,7 @@
  * Created by Slavi on 3/7/2015.
  */
 app.controller('CountryCtrl', function($scope, $log, $stateParams, $state, $ionicPopup, $ionicLoading,
-                                       cashedResourcesService, countriesApiService, localStorageService, fileService){
+                                       cashedResourcesService, countriesApiService, localStorageService){
     'use strict';
 
     var deviceInformation = ionic.Platform.device(),
@@ -33,8 +33,6 @@ app.controller('CountryCtrl', function($scope, $log, $stateParams, $state, $ioni
         $log.error("CountryCtrl: Error getting details for {0}".format($scope.country.name));
         showErrorPopup(error)
     });
-
-    $scope.photos = fileService.getImagesPaths($scope.country.name);
 
     /* 
         Sets current country as home and redirects to home screen
